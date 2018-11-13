@@ -1,0 +1,399 @@
+﻿@model Epione.Web.Models.ChatViewModel
+@{
+    Layout = "~/Views/Shared/_LayoutTesting.cshtml";
+}
+<div id="frame">
+    <div id="sidepanel">
+        <div id="profile">
+            <div class="wrap">
+                @if (String.IsNullOrWhiteSpace(Model.currentUser.photo))
+                {
+                    <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                }
+                else
+                {
+                    <img id="profile-img" src="~/Content/Chat/Images/@Model.currentUser.photo" class="online" alt="">
+                }
+                <p class="myname">@Model.currentUser.firstName @Model.currentUser.lastName</p>
+                <!--   <i class="fa fa-chevron-down expand-button" aria-hidden="true"></i>-->
+                <div id="status-options" class="">
+                    <ul>
+                        <li id="status-online" class="active">
+                            <span class="status-circle"></span>
+                            <p>Online</p>
+                        </li>
+                        <li id="status-away">
+                            <span class="status-circle"></span>
+                            <p>Away</p>
+                        </li>
+                        <li id="status-busy">
+                            <span class="status-circle"></span>
+                            <p>Busy</p>
+                        </li>
+                        <li id="status-offline">
+                            <span class="status-circle"></span>
+                            <p>Offline</p>
+                        </li>
+                    </ul>
+                </div>
+                <!--<div id="expanded">
+                    <label for="twitter"><i class="fa fa-facebook fa-fw" aria-hidden="true"></i></label>
+                    <input name="twitter" type="text" value="mikeross"/>
+                    <label for="twitter"><i class="fa fa-twitter fa-fw" aria-hidden="true"></i></label>
+                    <input name="twitter" type="text" value="ross81"/>
+                    <label for="twitter"><i class="fa fa-instagram fa-fw" aria-hidden="true"></i></label>
+                    <input name="twitter" type="text" value="mike.ross"/>
+                </div>-->
+            </div>
+        </div>
+        <div id="search">
+            <label for=""><i class="fa fa-search" aria-hidden="true"></i></label>
+            <input id="searchInput" type="text" placeholder="Search...">
+        </div>
+        <div id="contacts">
+            <ul>
+                @if (Model.currentUser.role.Equals("doctor"))
+                {
+                    foreach (Epione.Domain.discussion discussion in Model.discussions)
+                    {
+
+                        <li class="contact" id="@discussion.id">
+                            <div class="wrap">
+                                <span class="contact-status online"></span>
+                                @if (String.IsNullOrWhiteSpace(Model.currentUser.photo))
+                                {
+                                    <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                                }
+                                else
+                                {
+                                    <img id="profile-img" src="~/Content/Chat/Images/@discussion.patient.photo" class="online" alt="">
+                                }
+                                <div class="meta">
+                                    <p class="name">@discussion.patient.firstName @discussion.patient.lastName</p>
+                                    <p class="preview">@discussion.messages.Last().content</p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                }
+                else
+                {
+                    foreach (Epione.Domain.discussion discussion in Model.discussions)
+                    {
+
+                        <li class="contact" id="@discussion.id">
+                            <div class="wrap">
+                                <span class="contact-status online"></span>
+                                @if (String.IsNullOrWhiteSpace(Model.currentUser.photo))
+                                {
+                                    <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                                }
+                                else
+                                {
+                                    <img id="profile-img" src="~/Content/Chat/Images/@discussion.doctor.photo" class="online" alt="">
+                                }
+                                <div class="meta">
+                                    <p class="name">@discussion.doctor.firstName @discussion.doctor.lastName</p>
+                                    <p class="preview">@discussion.messages.Last().content</p>
+                                </div>
+                            </div>
+                        </li>
+                    }
+
+                }
+            </ul>
+        </div>
+        @*<div id="bottom-bar">
+                <button id="addcontact">
+                    <i class="fa fa-user-plus fa-fw" aria-hidden="true"></i> <span>Add contact</span>
+                </button>
+                <button id="settings"><i class="fa fa-cog fa-fw" aria-hidden="true"></i> <span>Settings</span></button>
+            </div>*@
+    </div>
+    <div class="content">
+        @if (Model.currentUser.role.Equals("doctor"))
+        {
+            foreach (Epione.Domain.discussion discussion in Model.discussions)
+            {
+
+                <div class="contact-profile" id="contact-profile-@discussion.id">
+                    @if (String.IsNullOrWhiteSpace(Model.currentUser.photo))
+                    {
+                        <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                    }
+                    else
+                    {
+                        <img id="profile-img" src="~/Content/Chat/Images/@discussion.patient.photo" class="online" alt="">
+                    }
+                    <div class="chat-about">
+                        <div class="chat-with">@discussion.patient.firstName @discussion.patient.lastName</div>
+                        <div class="chat-num-messages">already @discussion.messages.Count messages</div>
+                    </div>
+
+                    <!-- <div class="social-media">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                    </div> -->
+                </div>
+                <div class="messages" id="messages-@discussion.id">
+                    <ul>
+                        @foreach (Epione.Domain.message message in discussion.messages)
+                        {
+
+                            if (message.senderId.Equals(Model.currentUser.id))
+                            {
+                                <li class="sent">
+                                    <span class="name"> @message.sentTime </span>
+                                    @if (String.IsNullOrWhiteSpace(Model.currentUser.photo))
+                                    {
+                                        <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img id="profile-img" src="~/Content/Chat/Images/@discussion.doctor.photo" class="online" alt="">
+                                    }
+                                    <p>@message.content</p>
+                                    @if (message.seenTime != null)
+                                    {
+                                        <span class="sent"><i class="fa fa-double-check fa-fw"></i>@message.seenTime</span>
+                                    }
+
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="replies">
+                                    @if (String.IsNullOrWhiteSpace(discussion.patient.photo))
+                                    {
+                                        <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img id="profile-img" src="~/Content/Chat/Images/@discussion.patient.photo" class="online" alt="">
+                                    }
+                                    <p>@message.content</p>
+                                    @if (message.seenTime != null)
+                                    {
+                                        <span class="sent"><i class="fa fa-double-check fa-fw"></i>@message.seenTime</span>
+                                    }
+                                </li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+            }
+
+        }
+        else
+        {
+            foreach (Epione.Domain.discussion discussion in Model.discussions)
+            {
+
+                <div class="contact-profile" id="contact-profile-@discussion.id">
+                    @if (String.IsNullOrWhiteSpace(Model.currentUser.photo))
+                    {
+                        <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                    }
+                    else
+                    {
+                        <img id="profile-img" src="~/Content/Chat/Images/@discussion.doctor.photo" class="online" alt="">
+                    }
+                    <div class="chat-about">
+                        <div class="chat-with">@discussion.doctor.firstName @discussion.doctor.lastName</div>
+                        <div class="chat-num-messages">already @discussion.messages.Count messages</div>
+                    </div>
+
+                    <!-- <div class="social-media">
+                        <i class="fa fa-facebook" aria-hidden="true"></i>
+                        <i class="fa fa-twitter" aria-hidden="true"></i>
+                        <i class="fa fa-instagram" aria-hidden="true"></i>
+                    </div> -->
+                </div>
+                <div class="messages" id="messages-@discussion.id">
+
+                    <ul>
+                        @foreach (Epione.Domain.message message in discussion.messages)
+                        {
+                            if (message.senderId.Equals(Model.currentUser.id))
+                            {
+                                <li class="sent">
+                                    <span class="name"> @message.sentTime </span>
+                                    @if (String.IsNullOrWhiteSpace(Model.currentUser.photo))
+                                    {
+                                        <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img id="profile-img" src="~/Content/Chat/Images/@discussion.patient.photo" class="online" alt="">
+                                    }
+                                    <p>@message.content</p>
+                                    @if (message.seenTime != null)
+                                    {
+                                        <span class="sent"><i class="fa fa-double-check fa-fw"></i>@message.seenTime</span>
+                                    }
+
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="replies">
+                                    @if (String.IsNullOrWhiteSpace(discussion.doctor.photo))
+                                    {
+                                        <img id="profile-img" src="~/Content/Chat/Images/avatar.png" class="online" alt="">
+                                    }
+                                    else
+                                    {
+                                        <img id="profile-img" src="~/Content/Chat/Images/@discussion.doctor.photo" class="online" alt="">
+                                    }
+                                    <p>@message.content</p>
+                                    @if (message.seenTime != null)
+                                    {
+                                        <span class="sent"><i class="fa fa-double-check fa-fw"></i>@message.seenTime</span>
+                                    }
+                                </li>
+                            }
+
+
+
+                        }
+                    </ul>
+                </div>
+            }
+
+        }
+
+        <div class="message-input">
+            <div class="wrap  lead emoji-picker-container">
+                <!-- data-emojiable="true"
+                data-emoji-input="unicode" -->
+                <input type="text" placeholder="Write your message..." value="🤴54ljhl🤴646klj🤴">
+                <i class="fa fa-paperclip attachment" aria-hidden="true"></i>
+                <button class="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<p class="lead emoji-picker-container">
+        <textarea class="form-control textarea-control" rows="3" placeholder="Textarea with emoji Unicode input"
+            data-emojiable="true" data-emoji-input="unicode"></textarea>
+    </p>-->
+<!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>-->
+
+@section scripts
+{
+    <!--Reference the SignalR library. -->
+    <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+    <!--SignalR script to update the chat page and send messages.-->
+    <script>
+
+   var chat = $.connection.chatHub;
+        $(function () {
+            // Initializes and creates emoji set from sprite sheet
+            window.emojiPicker = new EmojiPicker({
+                emojiable_selector: '[data-emojiable=true]',
+                assetsPath: 'lib/img/',
+                popupButtonClasses: 'fa fa-smile-o'
+            });
+            // Finds all elements with `emojiable_selector` and converts them to rich emoji input fields
+            // You may want to delay this step if you have dynamically created input fields that appear later in the loading process
+            // It can be called as many times as necessary; previously converted input fields will not be converted again
+            window.emojiPicker.discover();
+
+                        // Reference the auto-generated proxy for the hub.
+           
+            // Create a function that the hub can call back to display messages.
+            chat.client.addNewMessageToPage = function (name, message, sender) {
+                // Add the message to the page.
+               
+                if ($('#displayname').val() === sender)
+                {
+                  
+                    $('<li class="replies"><img src="" alt="" style="height:24px" /><p>' + htmlEncode(name) + '</p><span style="font-size:10px;padding-top: 10px;padding-right: 5px;color:gray;float:right;">' + message +'</span></li>').appendTo($('.messages ul'));
+                                $(".messages").mCustomScrollbar();
+                                $(".messages").mCustomScrollbar('scrollTo', $('.messages ul li').last().position().top);
+                }
+                else
+                {
+                    $('	<span class="contact-status online"></span>').insertBefore($('#contactslist :input[value="' + sender + '"]').parent("li").find("img").first());
+                }
+                $('#notificationsound')[0].play();
+            };
+            // Get the user name and store it to prepend to messages.
+            $('#displayname').val("test"+"|"+"test");
+            // Set initial focus to message input box.
+            $('#message').focus();
+            // Start the connection.
+             $.connection.hub;
+            $.connection.hub.start().done(function () {
+                @*$('#sendmessage').click(function () {
+                    // Call the Send method on the hub.
+                    chat.server.send($('#displayname').val(), $('#message').val());
+                    $('#discussion').append('<li><div class="col-md-10"><strong>'
+                        + '@User.Identity.GetName()'
+                        + '</strong>:'
+                        + htmlEncode($('#message').val())
+                        + '</div><div class="col-md-2">'
+                        + moment().format('DD/MM/YYYY hh:mm:ss A')
+                        + '</div></li><br>');
+
+                    // Clear text box and reset focus for next comment.
+                    $('#message').val('').focus();
+                });*@
+
+                  function newMessage() {
+            message = $(".message-input input").val();
+            if ($.trim(message) === '') {
+                return false;
+            }
+            $('<li class="sent"><img src="" alt="" style="height:24px" /><p>' + htmlEncode(message) + '</p><span style="font-size:10px;padding-top: 10px;padding-right: 5px;color:gray">' + moment().format('DD/MM/YYYY hh:mm:ss A')+'</span></li>').appendTo($('.messages ul'));
+            $('.message-input input').val(null);
+            $(".messages").mCustomScrollbar();
+            $(".messages").mCustomScrollbar('scrollTo', $('.messages ul li').last().position().top);
+            chat.server.send($('#displayname').val(), message);
+        };
+
+        $('.submit').click(function () {
+            newMessage();
+        });
+
+        $(window).on('keydown', function (e) {
+            if (e.which === 13) {
+                newMessage();
+                return false;
+            }
+        });
+            });
+        });
+
+        function newMessage() {
+            message = $(".message-input input").val();
+            if ($.trim(message) === '') {
+                return false;
+            }
+
+            //&#129332;54ljhl&#129332;646klj&#129332;
+            converted = convertCharStr2SelectiveCPs(message, 'ascii', false, '&#', ';', 'dec');
+
+          
+
+
+            console.log(converted + "**** String Converted !!");
+
+
+
+            chat.server.send('test', message);
+            console.log("&#129332;54ljhl&#129332;646klj&#129332;*********************");
+            $('<li class="sent"><img src="avatar.png" alt="" /><p>' + message + '</p></li>').appendTo($('.messages ul'));
+            $('.message-input input').val(null);
+            $('.contact.active .preview').html('<span>You: </span>' + message);
+            $(".messages").animate({ scrollTop: $(document).height() + 100 }, "fast");
+        }
+
+    </script>
+}
