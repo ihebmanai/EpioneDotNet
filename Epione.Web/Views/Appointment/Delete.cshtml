@@ -1,0 +1,37 @@
+﻿@model Epione.Web.Models.AppointmentVM
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_LayoutDetails.cshtml";
+}
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+<center>
+
+    <div class="alert alert-warning" role="alert">
+        <h5>
+            étes Vous sur de Vouloir supprimer le rendez Vous prévu le @Html.DisplayFor(model => model.date_appointment) <br />
+            avec Dr : @Html.DisplayFor(model => model.doctor.firstName)  @Html.DisplayFor(model => model.doctor.lastName) ayant l'etat <br />
+            @Html.DisplayFor(model => model.state)
+        </h5>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-dark btn-sm"  /> |
+            
+            @Html.ActionLink("Back to List", "Index", "Appointment", null, new { @class= "btn btn-dark btn-theme-colored btn-sm" })
+           
+        </div>
+    }
+</center>
+
+<br /><br /><br /><br /><br /><br /><br />

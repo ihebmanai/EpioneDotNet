@@ -186,7 +186,7 @@ namespace Epione.Data
                 .IsUnicode(false);
 
             modelBuilder.Entity<user>()
-                .Property(e => e.numberSocialSecurity_p)
+                .Property(e => e.numberSocialSecurity)
                 .IsUnicode(false);
 
             modelBuilder.Entity<user>()
@@ -203,13 +203,13 @@ namespace Epione.Data
 
             modelBuilder.Entity<user>()
                 .HasMany(e => e.appointments)
-                .WithOptional(e => e.user)
-                .HasForeignKey(e => e.id_patient);
+                .WithOptional(e => e.patient)
+                .HasForeignKey(e => e.patient.id);
 
             modelBuilder.Entity<user>()
                 .HasMany(e => e.appointments1)
-                .WithOptional(e => e.user1)
-                .HasForeignKey(e => e.id_doctor);
+                .WithOptional(e => e.doctor)
+                .HasForeignKey(e => e.doctor.id);
 
             modelBuilder.Entity<user>()
                 .HasMany(e => e.courses)

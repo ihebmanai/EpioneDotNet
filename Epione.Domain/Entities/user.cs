@@ -36,7 +36,7 @@ namespace Epione.Domain
 
         [Column(TypeName = "date")]
         public DateTime? birthDate { get; set; }
-
+        [JsonIgnore]
         public DateTime? creationDate { get; set; }
 
         [StringLength(255)]
@@ -45,6 +45,7 @@ namespace Epione.Domain
         [StringLength(255)]
         public string firstName { get; set; }
 
+        [JsonIgnore]
         public DateTime? lastLogin { get; set; }
 
         [StringLength(255)]
@@ -72,7 +73,7 @@ namespace Epione.Domain
         public string token { get; set; }
 
         [StringLength(255)]
-        public string numberSocialSecurity_p { get; set; }
+        public string numberSocialSecurity { get; set; }
 
         public int? treated { get; set; }
 
@@ -138,15 +139,15 @@ namespace Epione.Domain
 
         public bool ShouldSerializemotif_s()
         {
-            return role.Equals("doctor");
+            return false;
         }
 
         public bool ShouldSerializespeciality_s()
         {
-            return role.Equals("doctor");
+            return false;
         }
 
-        public bool ShouldSerializenumberSocialSecurity_p()
+        public bool ShouldSerializenumberSocialSecurity()
         {
             return role.Equals("patient");
         }
@@ -204,7 +205,10 @@ namespace Epione.Domain
         {
             return false;
         }
-
+        public bool ShouldDeserializetoken()
+        {
+            return false;
+        }
         public bool ShouldSerializeuser_type()
         {
             return false;

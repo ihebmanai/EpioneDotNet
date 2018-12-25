@@ -1,0 +1,376 @@
+﻿
+@model IEnumerable<Epione.Web.Models.AppointmentVM>
+
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+
+<!-- Mirrored from thememascot.net/demo/html/health-beauty/medical/medinova-html/v3.2/demo/events-list-left-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Nov 2018 18:52:34 GMT -->
+<head>
+
+    <!-- Meta Tags -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta name="description" content="Medinova - Health & Medical HTML Template" />
+    <meta name="keywords" content="building,business,construction,cleaning,transport,workshop" />
+    <meta name="author" content="ThemeMascot" />
+
+    <!-- Page Title -->
+    <title>Medinova - Health & Medical HTML Template</title>
+
+    <!-- Favicon and Touch Icons -->
+    <link href="~/Content/MainTemplate/images/favicon.png" rel="shortcut icon" type="image/png">
+    <link href="~/Content/MainTemplate/images/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="~/Content/MainTemplate/images/apple-touch-icon-72x72.png" rel="apple-touch-icon" sizes="72x72">
+    <link href="~/Content/MainTemplate/images/apple-touch-icon-114x114.png" rel="apple-touch-icon" sizes="114x114">
+    <link href="~/Content/MainTemplate/images/apple-touch-icon-144x144.png" rel="apple-touch-icon" sizes="144x144">
+
+    <!-- Stylesheet -->
+    <link href="~/Content/MainTemplate/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/MainTemplate/css/jquery-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/MainTemplate/css/animate.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/MainTemplate/css/css-plugin-collections.css" rel="stylesheet" />
+    <!-- CSS | menuzord megamenu skins -->
+    <link id="menuzord-menu-skins" href="css/menuzord-skins/menuzord-boxed.css" rel="stylesheet" />
+    <!-- CSS | Main style file -->
+    <link href="~/Content/MainTemplate/css/style-main.css" rel="stylesheet" type="text/css">
+    <!-- CSS | Preloader Styles -->
+    <link href="~/Content/MainTemplate/css/preloader.css" rel="stylesheet" type="text/css">
+    <!-- CSS | Custom Margin Padding Collection -->
+    <link href="~/Content/MainTemplate/css/custom-bootstrap-margin-padding.css" rel="stylesheet" type="text/css">
+    <!-- CSS | Responsive media queries -->
+    <link href="~/Content/MainTemplate/css/responsive.css" rel="stylesheet" type="text/css">
+    <!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
+    <!-- <link href="css/style.css" rel="stylesheet" type="text/css"> -->
+    <!-- CSS | Theme Color -->
+    <link href="~/Content/MainTemplate/css/colors/theme-skin-blue.css" rel="stylesheet" type="text/css">
+
+    <!-- external javascripts -->
+    <script src="~/Content/MainTemplate/js/jquery-2.2.0.min.js"></script>
+    <script src="~/Content/MainTemplate/js/jquery-ui.min.js"></script>
+    <script src="~/Content/MainTemplate/js/bootstrap.min.js"></script>
+    <!-- JS | jquery plugin collection for this theme -->
+    <script src="~/Content/MainTemplate/js/jquery-plugin-collection.js"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="">
+    <div id="wrapper">
+        <!-- preloader -->
+        
+
+        <!-- Header -->
+        
+
+        <!-- Start main-content -->
+        <div class="main-content">
+            <!-- Section: inner-header -->
+            <section class="inner-header divider layer-overlay overlay-deep" data-bg-img="../Content/MainTemplate/images/bg/bg5.jpg">
+                <div class="container pt-90 pb-50">
+                    <!-- Section Content -->
+                    <div class="section-content">
+                        <div class="row">
+                            <div class="col-md-12 xs-text-center">
+                                <h3 class="text-theme-colored font-36">Appointment List : </h3>
+                                <ol class="breadcrumb white mt-10">
+                                    <li><a href="#">@Html.ActionLink("MyAppointments", "index", "Appointment")</a></li>
+                                    <li><a href="#">@Html.ActionLink("Make Appointment", "rechDoctorAsync", "Appointment")</a></li>
+                                    <li class="active text-theme-colored">@Html.ActionLink("Accepted Appointment", "Index", "Appointment", new { @class = "active text-theme-colored" })</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <br />
+            <br />
+            <center>
+                @{
+                    string message = TempData["Message"] as string;
+                    if (message != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @message
+                        </div>
+                    }
+                }
+                @{
+                    string message2 = TempData["Message2"] as string;
+                    if (message2 != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @message2
+                        </div>
+                    }
+                }
+                @{
+                    string message4 = TempData["Message4"] as string;
+                    if (message2 != null)
+                    {
+                        <div class="alert alert-danger" role="alert">
+                            @message4
+                        </div>
+                    }
+                }
+                @{
+                    string message3 = TempData["Message3"] as string;
+                    if (message3 != null)
+                    {
+                        <div class="alert alert-warning" role="alert">
+                            @message3
+                        </div>
+                    }
+                }
+
+                @{
+                    string message5 = TempData["Message5"] as string;
+                    if (message5 != null)
+                    {
+                        <div class="alert alert-success" role="alert">
+                            @message5
+                        </div>
+                    }
+                }
+            </center>
+            <br /><br />
+
+            @using (Html.BeginForm())
+            {
+                <center>
+                    <table>
+                        <tr>
+                            <td>
+                                <div>
+                                    <label> City Heer ...:</label>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    @Html.TextBox("searchString")
+                                </div>
+                            </td>
+                            <td>
+                                <input type="submit" value="Search" id="submit" class="btn btn-dark btn-theme-colored btn-circled btn-xs" />
+                            </td>
+                        </tr>
+
+                    </table>
+                </center>
+            }
+
+
+            <!-- Section: Event List -->
+            <section>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-9 blog-pull-right">
+                            @foreach (var item in Model)
+                            {
+                                <div class="upcoming-events media maxwidth400 bg-light mb-20">
+                                    <div class="row equal-height">
+                                        <div class="col-sm-4 pr-0 pr-sm-15">
+                                            <div class="thumb p-15">
+                                                <img class="img-fullwidth" src="~/Content/MainTemplate/images/photos/4.jpg" alt="...">
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4 border-right pl-0 pl-sm-15">
+                                            <div class="event-details p-15 mt-20">
+                                                <h4 class="media-heading text-uppercase font-weight-500">@Html.DisplayFor(modelItem => item.title)</h4>
+                                                <p>With Mr : @Html.DisplayFor(modelItem => item.doctor.lastName) @Html.DisplayFor(modelItem => item.doctor.firstName).</p>
+                                                <h6>object : @Html.DisplayFor(modelItem => item.object_appointment).</h6>
+                                                <br />
+                                                <ul>
+
+                                                    <li class="text-theme-colored"><p style="color:green;">State : @Html.DisplayFor(modelItem => item.state).</p></li>
+                                                </ul>
+                                                <br />
+                                                @Html.ActionLink("Details ", "DetailsAsync", new { id = item.id }, new { @class = "btn btn-gray btn-theme-colored btn-xs" })  @Html.ActionLink("Edit ", "Edit", new { id = item.id }, new { @class = "btn btn-dark btn-theme-colored btn-xs" })  @Html.ActionLink("Delete ", "Delete", new { id = item.id }, new { @class = "btn btn-dark btn-xs" })
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-4">
+                                            <div class="event-count p-15 mt-15">
+                                                <center>
+                                                    <ul class="event-date list-inline font-16 text-uppercase mt-10 mb-20">
+                                                        <li class="p-15 mr-5 bg-lightest">@Html.DisplayFor(modelItem => item.date_appointment)</li>
+
+                                                    </ul>
+                                                </center>
+                                                <ul>
+                                                    <li class="mb-10 text-theme-colored"><i class="fa fa-clock-o mr-5"></i> at @Html.DisplayFor(modelItem => item.start_Hour) - @Html.DisplayFor(modelItem => item.end_Hour) pm</li>
+                                                    <li class="text-theme-colored"><i class="fa fa-map-marker mr-5"></i> @Html.DisplayFor(modelItem => item.doctor.adress).</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            }
+                        </div>
+                        <div class="col-sm-12 col-md-3">
+                            <div class="sidebar sidebar-left mt-sm-30">
+                                <div class="widget">
+                                    <h5 class="widget-title line-bottom">Archives</h5>
+                                    <ul class="list list-divider list-border">
+                                        <li><a href="#"><i class="fa fa-check-square-o mr-10 text-black-light"></i>@Html.ActionLink("Accepted", "Index", "Appointment", null, new { @style = "color:green;" })</a></li>
+                                        <li><a href="#"> @Html.ActionLink("Running", "Index3", "Appointment", null, new { @style = "color:orange;" })</a></li>
+                                        <li><a href="#">@Html.ActionLink("Refused", "Index2", "Appointment", null, new { @style = "color:red;" })</a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="widget">
+                                    <h5 class="widget-title line-bottom">Twitter Feed</h5>
+                                    <div class="twitter-feed list-border clearfix" data-username="Envato" data-count="3"></div>
+                                </div>
+                                <div class="widget">
+                                    <h5 class="widget-title line-bottom">Image gallery with text</h5>
+                                    <div class="widget-image-carousel">
+                                        <div class="item">
+                                            <img src="~/Content/MainTemplate/images/photos/p1.jpg" alt="">
+                                            <h4 class="title">This is a Demo Title</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae illum amet illo.</p>
+                                        </div>
+                                        <div class="item">
+                                            <img src="~/Content/MainTemplate/images/photos/2.jpg" alt="">
+                                            <h4 class="title">This is a Demo Title</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae illum amet illo.</p>
+                                        </div>
+                                        <div class="item">
+                                            <img src="~/Content/MainTemplate/images/photos/doctor.png" alt="">
+                                            <h4 class="title">This is a Demo Title</h4>
+                                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae illum amet illo.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="widget">
+                                    <h5 class="widget-title line-bottom">Tags</h5>
+                                    <div class="tags">
+                                        <a href="#">travel</a>
+                                        <a href="#">blog</a>
+                                        <a href="#">lifestyle</a>
+                                        <a href="#">feature</a>
+                                        <a href="#">mountain</a>
+                                        <a href="#">design</a>
+                                        <a href="#">restaurant</a>
+                                        <a href="#">journey</a>
+                                        <a href="#">classic</a>
+                                        <a href="#">sunset</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!-- end main-content -->
+        <!-- Footer -->
+        <footer id="footer" class="footer pb-0 bg-black-111">
+            <div class="container pb-20">
+                <div class="row multi-row-clearfix">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="widget dark">
+                            <img alt="" src="images/logo-wide-white.png">
+                            <p class="font-12 mt-20 mb-10">Medinova is a library of Crowdfunding and Medinova templates with predefined elements which helps you to build your own site. Lorem ipsum dolor sit amet consectetur.</p>
+                            <a class="text-gray font-12" href="#"><i class="fa fa-angle-double-right text-theme-colored"></i> Read more</a>
+                            <ul class="social-icons icon-dark mt-20">
+                                <li><a href="#" data-bg-color="#3B5998"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" data-bg-color="#02B0E8"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" data-bg-color="#05A7E3"><i class="fa fa-skype"></i></a></li>
+                                <li><a href="#" data-bg-color="#A11312"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" data-bg-color="#C22E2A"><i class="fa fa-youtube"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="widget dark">
+                            <h5 class="widget-title line-bottom">Pages</h5>
+                            <ul class="list-border list theme-colored angle-double-right">
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Donor Privacy Policy</a></li>
+                                <li><a href="#">Disclaimer</a></li>
+                                <li><a href="#">Terms of Use</a></li>
+                                <li><a href="#">Copyright Notice</a></li>
+                                <li><a href="#">Media Center</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="widget dark">
+                            <h5 class="widget-title line-bottom">Quick Links</h5>
+                            <ul class="list-border list theme-colored angle-double-right">
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Donor Privacy Policy</a></li>
+                                <li><a href="#">Disclaimer</a></li>
+                                <li><a href="#">Terms of Use</a></li>
+                                <li><a href="#">Copyright Notice</a></li>
+                                <li><a href="#">Media Center</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-3">
+                        <div class="widget dark">
+                            <h5 class="widget-title line-bottom">Quick Contact</h5>
+                            <ul class="list list-border">
+                                <li><a href="#">+(012) 345 6789</a></li>
+                                <li><a href="#">hello@yourdomain.com</a></li>
+                                <li><a href="#" class="lineheight-20">121 King Street, Melbourne Victoria 3000, Australia</a></li>
+                            </ul>
+                            <p class="text-white mb-5 mt-15">Subscribe to our newsletter</p>
+                            <form id="footer-mailchimp-subscription-form" class="newsletter-form mt-10">
+                                <label class="display-block" for="mce-EMAIL"></label>
+                                <div class="input-group">
+                                    <input type="email" value="" name="EMAIL" placeholder="Your Email" class="form-control" data-height="37px" id="mce-EMAIL">
+                                    <span class="input-group-btn">
+                                        <button type="submit" class="btn btn-colored btn-theme-colored m-0"><i class="fa fa-paper-plane-o text-white"></i></button>
+                                    </span>
+                                </div>
+                            </form>
+                            <!-- Mailchimp Subscription Form Validation-->
+                            <script type="text/javascript">
+                                $('#footer-mailchimp-subscription-form').ajaxChimp({
+                                    callback: mailChimpCallBack,
+                                    url: '//thememascot.us9.list-manage.com/subscribe/post?u=a01f440178e35febc8cf4e51f&amp;id=49d6d30e1e'
+                                });
+
+                                function mailChimpCallBack(resp) {
+                                    // Hide any previous response text
+                                    var $mailchimpform = $('#footer-mailchimp-subscription-form'),
+                                        $response = '';
+                                    $mailchimpform.children(".alert").remove();
+                                    console.log(resp);
+                                    if (resp.result === 'success') {
+                                        $response = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + resp.msg + '</div>';
+                                    } else if (resp.result === 'error') {
+                                        $response = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + resp.msg + '</div>';
+                                    }
+                                    $mailchimpform.prepend($response);
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-nav bg-black-222 p-20">
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <p class="text-white font-11 m-0">Copyright &copy;2015 ThemeMascot. All Rights Reserved</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+    </div>
+    <!-- end wrapper -->
+    <!-- Footer Scripts -->
+    <!-- JS | Custom script for all pages -->
+    <script src="js/custom.js"></script>
+
+</body>
+<!-- Mirrored from thememascot.net/demo/html/health-beauty/medical/medinova-html/v3.2/demo/events-list-left-sidebar.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 11 Nov 2018 18:52:38 GMT -->
+</html>

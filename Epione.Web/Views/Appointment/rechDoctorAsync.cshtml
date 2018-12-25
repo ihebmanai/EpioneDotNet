@@ -1,0 +1,195 @@
+﻿@model IEnumerable<Epione.Web.Models.DocotorAppointmentVm>
+
+@{
+    ViewBag.Title = "rechDoctorAsync";
+    Layout = "~/Views/Shared/_Layout3.cshtml";
+}
+<center>
+    <div class="alert alert-info" role="alert">First Step ... ! Choose Your doctor</div>
+</center>
+
+@using (Html.BeginForm())
+{
+    <center>
+        <h3>Your Actual Position:</h3>
+        <!--The div element for the map -->
+        <div id="map"></div>
+    </center>
+
+    
+    <br />
+<center>
+    <table>
+        <tr>
+            <td>
+                <div>
+                    <label> City Heer ...:</label>
+                </div>
+            </td>
+            <td>
+                <div>
+                    @Html.TextBox("searchStringVille", "Gouvernaurat de ariana,Tunis")
+                </div>
+            </td>
+            <td>
+                <input type="submit" value="Search" id="submit" onclick="getAdresse()" class="btn btn-dark btn-theme-colored btn-circled btn-xs" />
+            </td>
+        </tr>
+
+    </table>
+</center>
+}
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+
+@foreach (var item in Model)
+            {
+                <div class="upcoming-events media maxwidth400 bg-light mb-20">
+                    <div class="row equal-height">
+                        <div class="col-sm-4 pr-0 pr-sm-15">
+                            <div class="thumb p-15">
+                                <img class="img-fullwidth" src="../Content/MainTemplate/images/photos/p2f.jpg" alt="...">
+                            </div>
+                        </div>
+                        <div class="col-sm-4 border-right pl-0 pl-sm-15">
+                            <div class="event-details p-15 mt-20">
+                                <h4 class="media-heading text-uppercase font-weight-500">@Html.DisplayFor(modelItem => item.firstName) @Html.DisplayFor(modelItem => item.lastName)   </h4>
+                                <p>(actif depuis:@Html.DisplayFor(modelItem => item.lastLogin))</p>
+                                <p>Email :@Html.DisplayFor(modelItem => item.email)</p>
+                                <p>Phone :@Html.DisplayFor(modelItem => item.phone)</p>
+                                <ul>
+                                    <li class="mb-10 text-theme-colored"><i class="fa fa-map-marker mr-5"></i>@Html.DisplayFor(modelItem => item.adress.rue).</li>
+                                    <li class="text-theme-colored"><i class="fa fa-map-marker mr-5"></i>@Html.DisplayFor(modelItem => item.adress.ville) 75000.</li>
+                                </ul>
+                                @Html.ActionLink("Prendre RDV ", "Create", new { id = item.id }, new { @class = "btn btn-flat btn-dark btn-theme-colored btn-sm mt-10" }) 
+                                <a href="#" class="btn btn-flat btn-dark btn-theme-colored btn-sm mt-10">Availability <i class="fa fa-angle-double-right"></i></a> 
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="event-count p-15 mt-15">
+                                <ul class="event-date list-inline font-16 text-uppercase mt-10 mb-20">
+                                    <li class="p-15 mr-5 bg-lightest"><span>Membre Depuis:</span>@Html.DisplayFor(modelItem => item.creationDate)</li>
+                                    
+                                </ul>
+                                <ul>
+                                     @if (Convert.ToString(ViewData["speciality_s"]) == "")
+                                     {
+                                    <li class="mb-10 text-theme-colored">  Generalist</li>
+                                     }
+                                     else
+                                     {
+                                        <li class="mb-10 text-theme-colored"> Speciality: @Html.DisplayFor(modelItem => item.speciality_s) .</li>
+                                     }
+                                    @if (Convert.ToString(ViewData["speciality_s"]) == "")
+                                     {
+                                    <li class="mb-10 text-theme-colored"> Motif :No motif to set</li>
+                                    }
+                                    else
+                                    {
+                                        <li class="text-theme-colored">Motif: @Html.DisplayFor(modelItem => item.speciality_s).</li>
+                                    }
+                                        
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+   
+                }
+
+                
+</div></div></div>
+</div>
+<script>
+    function getAdresse() {
+        var geocoder = new google.maps.Geocoder();             // create a geocoder object
+        var location = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);    // turn coordinates into an object          
+        geocoder.geocode({ 'latLng': location }, function (results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {           // if geocode success
+                var add = results[0].formatted_address;         // if address found, pass to processing function
+                document.write(add);
+    }
+</script>
+
+
+<script>
+
+
+            // Initialize and add the map
+            function initMap() {
+                map = new google.maps.Map(document.getElementById('map'), {
+                    center: { lat: -34.397, lng: 150.644 },
+                    zoom: 6
+                });
+                var myLatLng = { lat: -25.363, lng: 131.044 };
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Hello World!'
+                });
+
+
+                
+        
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+
+                infoWindow.setPosition(pos);
+                infoWindow.setContent('Location found.');
+                infoWindow.open(map);
+                map.setCenter(pos);
+                
+                results[0].formatted_address;         // if address found, pass to processing function
+                
+                
+
+            }, function () {
+                handleLocationError(true, infoWindow, map.getCenter());
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    }
+
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+            'Error: The Geolocation service failed.' :
+            'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+        var add = results[0].formatted_address;         // if address found, pass to processing function
+        document.write(add);
+            }
+
+ 
+
+</script>
+<!--Load the API from the specified URL
+* The async attribute allows the browser to render the page while the API loads
+* The key parameter will contain your own API key (which is not needed for this tutorial)
+* The callback parameter executes the initMap() function
+-->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPIuR6EKoHIHFnOqr6WN_Q7_dNDy6Nwj8&callback=initMap">
+</script>
+<!--Load the API from the specified URL
+* The async attribute allows the browser to render the page while the API loads
+* The key parameter will contain your own API key (which is not needed for this tutorial)
+* The callback parameter executes the initMap() function
+-->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPIuR6EKoHIHFnOqr6WN_Q7_dNDy6Nwj8&callback=initMap">
+</script>

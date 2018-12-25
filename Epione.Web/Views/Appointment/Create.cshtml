@@ -1,0 +1,193 @@
+﻿@model Epione.Web.Models.AppointmentVM
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/PageAppoitment.cshtml";
+
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    listItems.Add(new SelectListItem
+    {
+        Text = "08h:30 AM",
+        Value = "08h:30 AM"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "09h:45 AM",
+        Value = "09h:45 AM"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "11h:00 AM",
+        Value = "11h:00"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "14h:00 PM",
+        Value = "14h:00 PM",
+        Selected = true
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "15h:15 PM",
+        Value = "15h:15 PM"
+    });
+    listItems.Add(new SelectListItem
+    {
+        Text = "16h:30 PM",
+        Value = "16h:30 PM"
+    });
+
+    listItems.Add(new SelectListItem
+    {
+        Text = "17h:45 PM",
+        Value = "17h:45 PM"
+    });
+    
+}
+
+<center>
+    @{
+        string second = TempData["second"] as string;
+        if (second != null)
+        {
+            <div class="alert alert-info" role="alert">
+                @second 
+            </div>
+        }
+    }
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    
+</center>
+<br />
+<br />
+<br />
+
+<div class="section-title text-center">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h3 class="text-uppercase mt-0">DR : @ViewBag.name @ViewBag.name2 </h3>
+            <div class="title-icon">
+                <i class="flaticon-hand221"></i>
+            </div>
+            <p>Hear you can take the contact Me... ! Welcome</p>
+        </div>
+    </div>
+</div>
+
+
+<center>
+    
+    @{
+        string message = TempData["Message"] as string;
+        if (message != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @message
+            </div>
+        }
+    }
+    @{
+        string message2 = TempData["Message2"] as string;
+        if (message2 != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @message2
+            </div>
+        }
+    }
+    @{
+        string message4 = TempData["Message4"] as string;
+        if (message2 != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                @message4
+            </div>
+        }
+    }
+    @{
+        string message3 = TempData["Message3"] as string;
+        if (message3 != null)
+        {
+            <div class="alert alert-warning" role="alert">
+                @message3
+            </div>
+        }
+    }
+</center>
+<br /><br />
+
+@using (Html.BeginForm("Create", "Appointment", FormMethod.Post, new { @class = "register-form form-transparent", @id="title", @name = "reg-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group mb-10">
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter title..." } })
+                @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group mb-10">
+                @Html.EditorFor(model => model.date_appointment, new { htmlAttributes = new { @class = "form-control ", @placeholder = "enter a date..." , type="date"} })
+                @Html.ValidationMessageFor(model => model.date_appointment, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+            <div class="form-group mb-10">
+                @Html.EditorFor(model => model.object_appointment, new { htmlAttributes = new { @class = "form-control", @placeholder = "enter and object..." } })
+                @Html.ValidationMessageFor(model => model.object_appointment, "", new { @class = "text-danger" })
+            </div>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="form-group mb-10">
+                        <center>
+                            @Html.DropDownListFor(model => model.start_Hour, listItems, "-- Select Status --", new { htmlAttributes = new { @class = "form-control", @id = "start_date" } })
+                            @Html.ValidationMessageFor(model => model.start_Hour, "", new { @class = "text-danger" })
+                        </center>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="form-group mb-10">
+                        @Html.EditorFor(model => model.end_Hour, new { htmlAttributes = new { @class = "form-control", disabled = "disabled", @readonly = "readonly",@Value="End Hour " } })
+                        @Html.ValidationMessageFor(model => model.end_Hour, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+               
+            </div>
+
+            <div class="form-group mb-10">
+                @Html.EditorFor(model => model.message, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter message..." } })
+                @Html.ValidationMessageFor(model => model.message, "", new { @class = "text-danger" })
+            </div>
+            
+    
+
+            <script type="text/javascript" src="~/Scripts/jquery-3.3.1.js">
+
+                $("#okok").click(function () {   // 1st
+                    alert('msg');
+                });
+
+            </script>
+
+
+
+
+
+
+            <div class="form-group">
+                <input class="btn btn-dark btn-lg btn-block mt-15" type="submit" value="Create">
+            </div>
+
+
+
+
+
+
+}
+
+
+

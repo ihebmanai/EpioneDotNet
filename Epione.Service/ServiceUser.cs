@@ -91,7 +91,8 @@ namespace Epione.Service
                 var request = new HttpRequestMessage(HttpMethod.Post,
       "http://localhost:8089/Epione-web/user/addPatient");
                 var client = new HttpClient();
-                request.Content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
+                var json = JsonConvert.SerializeObject(user);
+                request.Content = new StringContent(json, Encoding.UTF8, "application/json");
                 var response = await client.SendAsync(request);
                 if (response.IsSuccessStatusCode)
                 {
